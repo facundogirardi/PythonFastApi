@@ -6,19 +6,15 @@
 # Ejecución: sudo mongod --dbpath "/path/a/la/base/de/datos/"
 # Conexión: mongodb://localhost
 
+import os
+
 from pymongo import MongoClient
 
-# Descomentar el db_client local o remoto correspondiente
+# La URI de conexión se toma de la variable de entorno MONGODB_URI.
+# Por defecto usa un MongoDB local (mongodb://localhost:27017).
+# Ejemplo para MongoDB Atlas:
+#   MONGODB_URI="mongodb+srv://<user>:<password>@<url>/?retryWrites=true&w=majority"
+MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
+MONGODB_DB = os.getenv("MONGODB_DB", "test")
 
-db_client = MongoClient("mongodb+srv://facundogirardi:XJD8zyJ8icvvQcgj@cluster0.wntcwh2.mongodb.net/").test
-
-# Base de datos local MongoDB
-# db_client = MongoClient().local
-
-# Base de datos remota MongoDB Atlas (https://mongodb.com)
-# db_client = MongoClient(
-#     "mongodb+srv://<user>:<password>@<url>/?retryWrites=true&w=majority").test
-
-# Despliegue API en la nube:
-# Deta - https://www.deta.sh/
-# Intrucciones - https://fastapi.tiangolo.com/deployment/deta/
+db_client = MongoClient(MONGODB_URI)[MONGODB_DB]

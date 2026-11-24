@@ -1,0 +1,5 @@
+fastapi[standard]==0.165.0
+pymongo==4.20.1
+python-jose[cryptography]==3.5.0
+passlib==1.9.5
+bcrypt==5.0.0
